@@ -121,7 +121,7 @@ public class Homework12 {
 
 	}
 
-	public static boolean closeEnough(double a, double b) {
+	private static boolean closeEnough(double a, double b) {
 		return Math.abs(a - b) < 0.00001;
 	}
 }
