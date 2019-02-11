@@ -7,18 +7,19 @@ import java.util.ArrayList;
 
 public class Homework12 {
 
+private ArrayList<RectangularShape> rect;
 	/* Finish the constructor and create any necessary instance
 	 * variables. The constructor should create and save an
 	 * ArrayList of RectangularShape values
 	 */
 	public Homework12() {
-
+		rect = new ArrayList<RectangularShape>();
 	}
 
 	/* Adds the parameter s to the ArrayList
 	 */
 	public void addShape(RectangularShape s) {
-
+			rect.add(s);
 	}
 
 	/* Returns the number of RectangularShape objects
@@ -26,7 +27,13 @@ public class Homework12 {
 	 * parameter r
 	 */
 	public int problem1(Rectangle2D r) {
-
+		int c = 0;
+		for(RectangularShape recta: rect){
+			if(recta.intersects(r)){
+				c++;
+			}
+		}
+		return c;
 	}
 
 	/* Returns the number of RectangularShape objects
@@ -34,21 +41,44 @@ public class Homework12 {
 	 * parameter p
 	 */
 	public int problem2(Point2D p) {
-
+			int c = 0;
+			for(int i=0; i<rect.size(); i++){
+				if(rect.get(i).contains(p)==false){
+					c++;
+				}
+			}
+			return c;
 	}
 
 	/* Returns the number of Ellipse2D objects that
 	 * are in the ArrayList
 	 */
-	public int problem3() {
 
+	public int problem3() {
+			int c=0;
+			for(RectangularShape r: rect){
+				if (r instanceof Ellipse2D){
+					c++;
+				}
+			}
+			return c;
 	}
 
 	/* Returns true if any of the Rectangle2D objects
 	 * in the ArrayList intersects the parameter Line2D
 	 */
 	public boolean problem4(Line2D l) {
-
+			boolean c = false;
+			ArrayList<Rectangle2D> rectan = new ArrayList<Rectangle2D>();
+			for (int i = 0; i< rect.size(); i++){
+				rectan.add(rect.get(i).getFrame());
+			}
+			for (Rectangle2D re: rectan){
+				if (l.intersects(re)){
+					c=true;
+				}
+			}
+			return c;
 	}
 
 	/* Return the total area of the RectangularShape objects in
@@ -60,9 +90,22 @@ public class Homework12 {
 	 * counts for both (i.e. do not account for intersection)
 	 */
 	public double problem5() {
+		double totalArea = 0;
 
-	}
+		Rectangle2D r1 = new Rectangle2D.Double();
+		Ellipse2D e1 = new Ellipse2D.Double();
 
+		for(int i = 0; i<rect.size(); i++){
+			RectangularShape r = rect.get(i);
+			if(r1.getClass() == r.getClass()){
+				totalArea = totalArea + r.getWidth() * r.getHeight();
+			}
+			if(e1.getClass() == r.getClass()){
+				totalArea = totalArea + Math.PI * (r.getHeight()/2) * (r.getWidth()/2);
+			}
+		}
+		return totalArea;
+}
 	public static void main(String[] args) {
 		boolean passed = true;
 
